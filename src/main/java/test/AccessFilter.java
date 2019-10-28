@@ -9,6 +9,13 @@ import org.apache.log4j.Logger;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 
+/**
+ * 过滤器
+	继承ZuulFilter
+	run()过滤器主体
+ * @author xiaodi
+ *
+ */
 public class AccessFilter extends ZuulFilter{
 
 	private final Logger logger  = Logger.getLogger(getClass());
@@ -20,8 +27,8 @@ public class AccessFilter extends ZuulFilter{
 		String name = rq.getParameter("name");
 		if (StringUtils.isEmpty(name)) {
 			logger.info("name为空拦截请求");
-			ctx.setSendZuulResponse(false);
-			ctx.setResponseStatusCode(401);
+			ctx.setSendZuulResponse(false);//拦截实现  关闭路由
+			ctx.setResponseStatusCode(401);//错误码
 			return null;
 		}
 		logger.info("OK --- name:"+name);
